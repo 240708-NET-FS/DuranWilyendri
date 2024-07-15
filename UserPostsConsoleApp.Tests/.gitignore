@@ -1,0 +1,5 @@
+.DS_Store
+UserPostsConsoleApp/bin
+UserPostsConsoleApp/obj
+UserPostsConsoleApp.Tests/bin
+UserPostsConsoleApp.Tests/obj

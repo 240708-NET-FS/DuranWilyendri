@@ -1,0 +1,15 @@
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin/Debug/net8.0/UserPostsConsoleApp
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin/Debug/net8.0/UserPostsConsoleApp.deps.json
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin/Debug/net8.0/UserPostsConsoleApp.runtimeconfig.json
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin/Debug/net8.0/UserPostsConsoleApp.dll
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin/Debug/net8.0/UserPostsConsoleApp.pdb
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.AssemblyInfoInputs.cache
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.AssemblyInfo.cs
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.csproj.CoreCompileInputs.cache
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.sourcelink.json
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.dll
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/refint/UserPostsConsoleApp.dll
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.pdb
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/UserPostsConsoleApp.genruntimeconfig.cache
+/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj/Debug/net8.0/ref/UserPostsConsoleApp.dll
