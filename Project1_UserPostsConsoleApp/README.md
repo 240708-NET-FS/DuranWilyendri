@@ -1,4 +1,4 @@
-# Banking Console App
+# User Posts Console App
 
 ## Requirements
 - The application should be a C# Console Application
