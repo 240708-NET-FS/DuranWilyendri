@@ -1,13 +1,22 @@
+./.DS_Store
 .DS_Store
 UserPostsConsoleApp/bin
 UserPostsConsoleApp/obj
 UserPostsConsoleApp.Tests/bin
 UserPostsConsoleApp.Tests/obj
 
-/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin
-/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj
+# /Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/bin
+# /Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp/obj
 
-/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp.Tests/bin
-/Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp.Tests/obj
+# /Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp.Tests/bin
+# /Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp.Tests/obj
 
-UserPostsConsoleApp/appsettings.json
+# UserPostsConsoleApp/appsettings.json
+
+# # Binary and obj project folders
+# /Users/wilyendri/RevProjects/Project1/Project1_UserPostsConsoleApp/UserPostsConsoleApp/obj
+# /Users/wilyendri/RevProjects/Project1/Project1_UserPostsConsoleApp/UserPostsConsoleApp/bin
+
+# # Binary and obj test folders
+# /Users/wilyendri/RevProjects/Project1/Project1_UserPostsConsoleApp/UserPostsConsoleApp.Tests/bin
+# /Users/wilyendri/RevProjects/Project1/Project1_UserPostsConsoleApp/UserPostsConsoleApp.Tests/obj.DS_Store

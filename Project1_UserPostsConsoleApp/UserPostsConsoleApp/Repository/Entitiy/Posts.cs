@@ -8,4 +8,9 @@ public class Posts
     public DateTime PostDate { get; set; }
     public int AccountID { get; set; }
     public Account Account { get; set; }
+
+    public override string ToString()
+    {
+        return $"Title: {Title}, Content: {Content} - Posted By: {Account.Username} On {PostDate}";
+    }
 }
