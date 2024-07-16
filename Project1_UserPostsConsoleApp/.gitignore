@@ -1,4 +1,4 @@
-./.DS_Store
+/Users/wilyendri/RevProjects/Project1/.DS_Store
 .DS_Store
 UserPostsConsoleApp/bin
 UserPostsConsoleApp/obj
@@ -11,7 +11,7 @@ UserPostsConsoleApp.Tests/obj
 # /Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp.Tests/bin
 # /Users/wilyendri/RevProjects/Project1/UserPostsConsoleApp.Tests/obj
 
-# UserPostsConsoleApp/appsettings.json
+UserPostsConsoleApp/appsettings.json
 
 # # Binary and obj project folders
 # /Users/wilyendri/RevProjects/Project1/Project1_UserPostsConsoleApp/UserPostsConsoleApp/obj
