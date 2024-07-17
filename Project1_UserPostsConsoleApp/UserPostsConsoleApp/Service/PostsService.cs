@@ -1,83 +1,69 @@
 using UserPostsConsoleApp.Entities;
 using Microsoft.IdentityModel.Tokens;
-using System;
+using UserPostsConsoleApp.DAO;
 
 namespace UserPostsConsoleApp.Service;
 
-public class PostsService 
+public class PostsService
 {
-    private ApplicationDbContext applicationDbContext;
-    
-    public PostsService(ApplicationDbContext applicationDbContext) 
+    private PostsDAO postsDAO;
+
+    public PostsService(PostsDAO postsDAO)
     {
-        this.applicationDbContext = applicationDbContext;
+        this.postsDAO = postsDAO;
     }
 
-    public string createPost(Account account, string title, string content, DateTime date) 
+    public string createPost(Account account, string title, string content)
     {
-        try 
-        {
-            Posts post = new Posts{Title = title, Content = content, PostDate = date, AccountID = account.AccountID};
-            
-            applicationDbContext.Posts.Add(post);
-            applicationDbContext.SaveChanges();
+
+        Posts post = new Posts { Title = title, Content = content, PostDate = DateTime.Now, AccountID = account.AccountID };
+
+        postsDAO.Create(post);
 
 
-            return post.ToString();
-
-        } catch (Exception ex) 
-        {
-            throw new Exception($"Error when crating post for user {account.Username}: {ex.Message}");
-        }
+        return post.ToString();
     }
 
-    public List<string>? seeAllUserPosts (Account account) 
+    public List<string>? seeAllUserPosts(Account account)
     {
-        try 
-        {
-            List<string> postList = new List<string>();
-        
-            var posts = applicationDbContext.Posts.Where(p => p.AccountID == account.AccountID).ToList();
 
-            if (posts != null) 
+        List<string> postList = new List<string>();
+
+        var posts = postsDAO.GetAllByAUser(account).ToList();
+
+        if (posts != null)
+        {
+            for (int i = 0; i < posts.Count(); i++)
             {
-                for (int i = 0; i < posts.Count(); i++) {
-                    postList.Add(posts[i].ToString());
-                }
+                postList.Add(posts[i].ToString());
+
             }
-
-
-            return postList;      
-
-        } catch (Exception ex) 
-        {
-            throw new Exception($"Error when retrieving posts from user {account.Username}: {ex.Message}");
-          
         }
+
+
+        return postList;
+
+
     }
 
-    public List<string>? seeAllPosts() 
+    public List<string>? seeAllPosts()
     {
-        try 
-        {
-            List<string> postList = new List<string>();
-        
-            var posts = applicationDbContext.Posts.ToList();
 
-            if (posts != null) 
+        List<string> postList = new List<string>();
+
+        var posts = postsDAO.GetAll().ToList();
+
+        if (posts != null)
+        {
+            for (int i = 0; i < posts.Count(); i++)
             {
-                for (int i = 0; i < posts.Count(); i++) {
-                    postList.Add(posts[i].ToString());
-                }
+                postList.Add(posts[i].ToString());
             }
-
-
-            return postList;      
-
-        } catch (Exception ex) 
-        {
-            throw new Exception($"Error when retrieving all posts: {ex.Message}");
         }
+
+
+        return postList;
+
     }
 
 }

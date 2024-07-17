@@ -11,6 +11,6 @@ public class Posts
 
     public override string ToString()
     {
-        return $"Title: {Title}, Content: {Content} - Posted By: {Account.Username} On {PostDate}";
+        return $"{Title}\n {Content}\n   - Posted By: {Account.Username} On {PostDate}";
     }
 }

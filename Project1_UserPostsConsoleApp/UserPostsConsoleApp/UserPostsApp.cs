@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using UserPostsConsoleApp.Controller;
+using UserPostsConsoleApp.DAO;
 using UserPostsConsoleApp.Entities;
 using UserPostsConsoleApp.Service;
 
@@ -12,18 +15,23 @@ public class UserPostsApp {
 
         using (var context = new ApplicationDbContext()) 
         {
-            UserService userService = new UserService(context);
-            PostsService postsService = new PostsService(context);
+            AccountDAO accountDAO = new AccountDAO(context);
+            PostsDAO postsDAO = new PostsDAO(context);
+
+            AccountService userService = new AccountService(accountDAO);
+            PostsService postsService = new PostsService(postsDAO);
+
+            ConsoleController consoleController = new ConsoleController(userService, postsService);
 
 
-            var createdUser = userService.createUser("Lio", "122333");
+            // var createdUser = userService.createUser("Lio", "122333");
 
-            if (createdUser) 
-            {
-                Console.WriteLine($"User succesfully created");
-            }
+            // if (createdUser) 
+            // {
+            //     Console.WriteLine($"User succesfully created");
+            // }
 
-            var loggedUser = userService.userLogin("Lio", "122333");
+            var loggedUser = userService.UserLogin("Lio", "122333");
 
             if (loggedUser) 
             {
@@ -33,9 +41,9 @@ public class UserPostsApp {
                 {
                     Console.WriteLine("User successfully logged in");
 
-                    var post = postsService.createPost(account, "The rise of the Sun", "This is the story of a sun that arose", DateTime.Now);
-                    var post2 = postsService.createPost(account, "The downfall of the Sun", "This is the story of a sun that fell and die", DateTime.Now);
-                    var post3 = postsService.createPost(account, "The relection day", "This is the story of a day that was elected", DateTime.Now);
+                    var post = postsService.createPost(account, "The rise of the Sun", "This is the story of a sun that arose");
+                    var post2 = postsService.createPost(account, "The downfall of the Sun", "This is the story of a sun that fell and die");
+                    var post3 = postsService.createPost(account, "The relection day", "This is the story of a day that was elected");
 
                     Console.WriteLine(post);
                 } 
@@ -55,12 +63,6 @@ public class UserPostsApp {
                 }
             }
 
-
-        }
-
-        using (var context = new ApplicationDbContext()) 
-        {
-            
 
         }
 
