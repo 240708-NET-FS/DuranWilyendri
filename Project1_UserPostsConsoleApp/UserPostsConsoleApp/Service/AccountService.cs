@@ -10,74 +10,67 @@ namespace UserPostsConsoleApp.Service;
 public class AccountService
 {
     private AccountDAO accountDAO;
-    
-    public AccountService(AccountDAO accountDAO) 
+
+    public AccountService(AccountDAO accountDAO)
     {
         this.accountDAO = accountDAO;
     }
 
-    public bool CreateUser(string username, string password) 
+    public bool CreateUser(string username, string password)
     {
-        try 
+
+        if (usernameExists(username))
         {
-            if(usernameExists(username)) 
-            {
-                throw new  CreateUserException("Username already taken");
-            }
-
-            var newAccount = new Account{Username = username, Password = password};
-
-            accountDAO.Create(newAccount);
-
-            return true;
-
-        } catch (SqlException ex) 
-        {
-            throw new Exception($"Error creating user {username}: {ex.Message}");
+            throw new CreateUserException("Username already taken");
         }
-        
+
+        var newAccount = new Account { Username = username, Password = password };
+
+        accountDAO.Create(newAccount);
+
+        return true;
+
+
+
     }
 
-    public bool UserLogin(string username, string password) 
+    public bool UserLogin(string username, string password)
     {
-      
+
         var account = accountDAO.GetByUsername(username);
 
-        if (account != null) 
+        if (account != null)
         {
-            if (account.Password == password) 
+            if (account.Password == password)
             {
                 return true;
 
-            } else 
+            }
+            else
             {
                 return false;
             }
         }
-        
+
         return false;
 
-    
+
     }
 
-    public bool usernameExists(string username) 
+    public bool usernameExists(string username)
     {
-        try
-        {
-            var account = accountDAO.GetByUsername(username);
 
-            return account != null;
-            
-        } catch (SqlException ex) 
-        {
-            throw new Exception($"Db error when verifying existance of user {username}: {ex.Message}");
-        }
-        
+        var account = accountDAO.GetByUsername(username);
+
+        return account != null;
+
+
+
     }
 
     public Account? GetAccount(string username)
     {
-        return usernameExists(username) ?  accountDAO.GetByUsername(username) : throw new Exception();
+        return usernameExists(username) ? accountDAO.GetByUsername(username) : throw new Exception();
     }
 
 
