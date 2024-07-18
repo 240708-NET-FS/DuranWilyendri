@@ -37,7 +37,7 @@ public class PostsDAO : IDAO<Posts>
     public void Update(Posts item)
     {
 
-        Posts originalPosts = context.Posts.FirstOrDefault(p => p.PostID == item.PostID);
+        Posts originalPosts = context.Posts.FirstOrDefault(p => p.PostID == item.PostID)!;
 
         if (originalPosts != null)
         {
@@ -46,7 +46,7 @@ public class PostsDAO : IDAO<Posts>
             originalPosts.PostDate = item.PostDate;
         }
 
-        context.Posts.Update(originalPosts);
+        context.Posts.Update(originalPosts!);
         context.SaveChanges();
     }
 

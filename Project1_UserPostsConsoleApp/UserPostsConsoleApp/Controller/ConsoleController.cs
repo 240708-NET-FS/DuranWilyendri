@@ -26,7 +26,7 @@ public class ConsoleController
 
         try
         {
-            int validOption = ValidateInputOptions(option);
+            int validOption = Validation.ValidateInputOptions(option);
 
             if (validOption >= 1 && validOption <= 2)
             {
@@ -49,7 +49,7 @@ public class ConsoleController
             State.isActiveLogin = false;
         }
     }
-    
+
     public void LoginSystem()
     {
         Console.WriteLine("Please, type your username: ");
@@ -72,7 +72,7 @@ public class ConsoleController
 
     public void PostingSystem(Account account)
     {
-        Console.WriteLine($"Welcome back {account.Username}. What would you like to do?");
+        Console.WriteLine($"\nWelcome back {account.Username}. What would you like to do?");
 
         while (State.isActiveSession)
         {
@@ -83,54 +83,53 @@ public class ConsoleController
 
             try
             {
-                int validOption = ValidateInputOptions(option);
+                int validOption = Validation.ValidateInputOptions(option);
 
                 switch (validOption)
                 {
                     case 1:
-                        Console.WriteLine("What is the title of your post?");
+                        Console.WriteLine("\nWhat is the title of your post?");
                         string title = Console.ReadLine()!;
 
                         Console.WriteLine("Speak your mind...");
                         string content = Console.ReadLine()!;
 
-                        Console.WriteLine("Posting...");
+                        Console.WriteLine("Posting...\n");
                         string post = postsService.CreatePost(account, title, content);
 
-                        Console.WriteLine(post);
+                        Console.WriteLine(post + "\n");
                         break;
 
                     case 2:
-                        Console.WriteLine("Enjoy reading yourself...");
+                        Console.WriteLine("\nEnjoy reading yourself...\n");
                         List<string> postedByUser = postsService.SeeAllUserPosts(account)!;
 
-                        // TODO: not working null
-                        if (postedByUser == null)
+                        if (postedByUser == null || postedByUser.Count == 0)
                         {
-                            Console.WriteLine("Oh oh, you have not posted anything yet.");
+                            Console.WriteLine("Oh oh, you have not posted anything yet.\n");
                         }
                         else
                         {
                             foreach (var posted in postedByUser!)
                             {
-                                Console.WriteLine(posted);
+                                Console.WriteLine(posted + "\n");
                             }
                         }
                         break;
 
                     case 3:
-                        Console.WriteLine("Here is what others have shared: ");
+                        Console.WriteLine("\nHere is what others have shared: \n");
                         List<string> allPosts = postsService.SeeAllPosts()!;
 
-                        if (allPosts == null)
+                        if (allPosts == null || allPosts.Count() == 0)
                         {
-                            Console.WriteLine("Oh oh, there are no posts yet.");
+                            Console.WriteLine("Oh oh, there are no posts yet.\n");
                         }
                         else
                         {
                             foreach (var aPost in allPosts!)
                             {
-                                Console.WriteLine(aPost);
+                                Console.WriteLine(aPost + "\n");
                             }
                         }
                         break;
@@ -142,7 +141,7 @@ public class ConsoleController
             }
             catch (InvalidInputException)
             {
-                Console.WriteLine("Please type either 1, 2, or 3.");
+                Console.WriteLine("Please type either 1, 2, or 3.\n");
             }
         }
 
@@ -166,15 +165,5 @@ public class ConsoleController
             Console.WriteLine(ex.Message);
         }
 
-    }
-
-    private int ValidateInputOptions(string toParse)
-    {
-        if (int.TryParse(toParse, out int result))
-        {
-            return result;
-        }
-
-        throw new InvalidInputException("Inavlid input");
     }
 }
