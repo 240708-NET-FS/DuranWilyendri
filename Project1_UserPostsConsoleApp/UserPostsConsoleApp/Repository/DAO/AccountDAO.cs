@@ -51,6 +51,11 @@ public class AccountDAO : IDAO<Account>
         context.SaveChanges();
     }
 
+    public Account GetByUsernameAndPassword(string username, string password)
+    {
+        return context.Accounts.FirstOrDefault(a => a.Username == username && a.Password == password)!;
+    }
+
     public Account GetByUsername(string username)
     {
         return context.Accounts.FirstOrDefault(a => a.Username == username)!;

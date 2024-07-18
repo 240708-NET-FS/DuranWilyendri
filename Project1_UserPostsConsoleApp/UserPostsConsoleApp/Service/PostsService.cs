@@ -13,7 +13,7 @@ public class PostsService
         this.postsDAO = postsDAO;
     }
 
-    public string createPost(Account account, string title, string content)
+    public string CreatePost(Account account, string title, string content)
     {
 
         Posts post = new Posts { Title = title, Content = content, PostDate = DateTime.Now, AccountID = account.AccountID };
@@ -24,7 +24,7 @@ public class PostsService
         return post.ToString();
     }
 
-    public List<string>? seeAllUserPosts(Account account)
+    public List<string>? SeeAllUserPosts(Account account)
     {
 
         List<string> postList = new List<string>();
@@ -46,7 +46,7 @@ public class PostsService
 
     }
 
-    public List<string>? seeAllPosts()
+    public List<string>? SeeAllPosts()
     {
 
         List<string> postList = new List<string>();

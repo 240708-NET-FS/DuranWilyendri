@@ -16,62 +16,51 @@ public class AccountService
         this.accountDAO = accountDAO;
     }
 
-    public bool CreateUser(string username, string password)
+    public void CreateUser(string username, string password)
     {
 
-        if (usernameExists(username))
+        if (UsernameExists(username))
         {
-            throw new CreateUserException("Username already taken");
+            throw new CreateUserException("Username already taken. Try with a different one.");
         }
 
         var newAccount = new Account { Username = username, Password = password };
 
         accountDAO.Create(newAccount);
-
-        return true;
-
-
-
     }
 
-    public bool UserLogin(string username, string password)
+    public Account UserLogin(string username, string password)
     {
+        if (username.Length == 0 || password.Length == 0)
+        {
+            throw new InvalidInputException("Invalid credentials");
+        }
 
-        var account = accountDAO.GetByUsername(username);
+        var account = accountDAO.GetByUsernameAndPassword(username, password);
 
         if (account != null)
         {
-            if (account.Password == password)
-            {
-                return true;
 
-            }
-            else
-            {
-                return false;
-            }
+            return account;
         }
 
-        return false;
+        throw new InvalidInputException("Invalid credentials.");
 
 
     }
 
-    public bool usernameExists(string username)
+    public bool UsernameExists(string username)
     {
 
         var account = accountDAO.GetByUsername(username);
 
         return account != null;
-
-
-
     }
 
-    public Account? GetAccount(string username)
-    {
-        return usernameExists(username) ? accountDAO.GetByUsername(username) : throw new Exception();
-    }
+    // public Account? GetAccount(string username)
+    // {
+    //     return UsernameExists(username) ? accountDAO.GetByUsername(username) : throw new Exception();
+    // }
 
 
 }
