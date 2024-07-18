@@ -6,14 +6,17 @@ using UserPostsConsoleApp.Controller;
 using UserPostsConsoleApp.DAO;
 using UserPostsConsoleApp.Entities;
 using UserPostsConsoleApp.Service;
+using UserPostsConsoleApp.Utility;
 
 namespace UserPostsConsoleApp;
 
-public class UserPostsApp {
-    public static void Main(string[] args) {
+public class UserPostsApp
+{
+    public static void Main(string[] args)
+    {
         // Account account;
 
-        using (var context = new ApplicationDbContext()) 
+        using (var context = new ApplicationDbContext())
         {
             AccountDAO accountDAO = new AccountDAO(context);
             PostsDAO postsDAO = new PostsDAO(context);
@@ -22,8 +25,15 @@ public class UserPostsApp {
             PostsService postsService = new PostsService(postsDAO);
 
             ConsoleController consoleController = new ConsoleController(userService, postsService);
+            
+            State.isActiveLogin = true;
+            State.isActiveSession = true;
 
-            consoleController.StartApp();
+            while (State.isActiveLogin)
+            {
+                consoleController.StartApp();
+            }
+
 
 
             // var createdUser = userService.createUser("Lio", "122333");

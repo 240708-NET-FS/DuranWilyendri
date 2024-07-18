@@ -40,10 +40,8 @@ public class PostsService
             }
         }
 
-
         return postList;
-
-
+        
     }
 
     public List<string>? SeeAllPosts()

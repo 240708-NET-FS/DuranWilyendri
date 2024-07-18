@@ -20,44 +20,42 @@ public class ConsoleController
 
     public void StartApp()
     {
-        Console.WriteLine("Hello Poster, welcome to UserPosts App. Press 1 to Login or 2 to create an account...");
+        Console.WriteLine("Hello Poster, welcome to UserPosts App. Please, type 1 to login, 2 to Create an Account, or any other key to leave the application.");
 
         string option = Console.ReadLine()!;
-        int validOption = ValidateInputOptions(option);
 
-        if (validOption != -1)
+        try
         {
+            int validOption = ValidateInputOptions(option);
+
             if (validOption >= 1 && validOption <= 2)
             {
                 if (validOption == 1)
                 {
                     LoginSystem();
                 }
-                else
+                else if (validOption == 2)
                 {
                     CreateAccountSystem();
                 }
             }
             else
             {
-                Console.WriteLine("Invalid number. Please type either 1 or 2.");
+                State.isActiveLogin = false;
             }
-
         }
-        else
+        catch (InvalidInputException)
         {
-            Console.WriteLine("Invalid input. Please type either 1 or 2.");
+            State.isActiveLogin = false;
         }
-
-
-
     }
+    
     public void LoginSystem()
     {
-        Console.WriteLine("Please, type a username: ");
+        Console.WriteLine("Please, type your username: ");
         string username = Console.ReadLine()!;
 
-        Console.WriteLine("Please, type a password: ");
+        Console.WriteLine("Please, type your password: ");
         string passw = Console.ReadLine()!;
 
         try
@@ -70,80 +68,84 @@ public class ConsoleController
         {
             Console.WriteLine(ex.Message);
         }
-
-
-
     }
 
     public void PostingSystem(Account account)
     {
         Console.WriteLine($"Welcome back {account.Username}. What would you like to do?");
-        Console.WriteLine("Please, type the corresponding number according to the following options: ");
-        Console.WriteLine("1. Post A Curiosity.\n 2. View My Posts.\n 3. View All Posts.\n 4. Logout");
 
-        string option = Console.ReadLine()!;
-
-        try
+        while (State.isActiveSession)
         {
-            int validOption = ValidateInputOptions(option);
+            Console.WriteLine("Please, type the corresponding number according to the following options: ");
+            Console.WriteLine("1. Post A Curiosity.\n2. View My Posts.\n3. View All Posts.\n4. Logout");
 
-            switch (validOption)
+            string option = Console.ReadLine()!;
+
+            try
             {
-                case 1:
-                    Console.WriteLine("What is the title of your post?");
-                    string title = Console.ReadLine()!;
+                int validOption = ValidateInputOptions(option);
 
-                    Console.WriteLine("Speak your mind...");
-                    string content = Console.ReadLine()!;
+                switch (validOption)
+                {
+                    case 1:
+                        Console.WriteLine("What is the title of your post?");
+                        string title = Console.ReadLine()!;
 
-                    Console.WriteLine("Posting...");
-                    string post = postsService.CreatePost(account, title, content);
+                        Console.WriteLine("Speak your mind...");
+                        string content = Console.ReadLine()!;
 
-                    Console.WriteLine(post);
-                    break;
+                        Console.WriteLine("Posting...");
+                        string post = postsService.CreatePost(account, title, content);
 
-                case 2:
-                    Console.WriteLine("Enjoy reading yourself...");
-                    List<string> postedByUser = postsService.SeeAllUserPosts(account)!;
+                        Console.WriteLine(post);
+                        break;
 
-                    if (postedByUser == null)
-                    {
-                        Console.WriteLine("Oh oh, you have not posted anything yet.");
-                    }
-                    else
-                    {
-                        foreach (var posted in postedByUser!)
+                    case 2:
+                        Console.WriteLine("Enjoy reading yourself...");
+                        List<string> postedByUser = postsService.SeeAllUserPosts(account)!;
+
+                        // TODO: not working null
+                        if (postedByUser == null)
                         {
-                            Console.WriteLine(posted);
+                            Console.WriteLine("Oh oh, you have not posted anything yet.");
                         }
-                    }
-                    break;
-
-                case 3:
-                    Console.WriteLine("Here is what others have shared: ");
-                    List<string> allPosts = postsService.SeeAllPosts()!;
-
-                    if (allPosts == null)
-                    {
-                        Console.WriteLine("Oh oh, there are no posts yet.");
-                    }
-                    else
-                    {
-                        foreach (var aPost in allPosts!)
+                        else
                         {
-                            Console.WriteLine(aPost);
+                            foreach (var posted in postedByUser!)
+                            {
+                                Console.WriteLine(posted);
+                            }
                         }
-                    }
-                    break;
-                case 4:
-                    Console.WriteLine($"See you later {account.Username}.");
-                    break;
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Here is what others have shared: ");
+                        List<string> allPosts = postsService.SeeAllPosts()!;
+
+                        if (allPosts == null)
+                        {
+                            Console.WriteLine("Oh oh, there are no posts yet.");
+                        }
+                        else
+                        {
+                            foreach (var aPost in allPosts!)
+                            {
+                                Console.WriteLine(aPost);
+                            }
+                        }
+                        break;
+                    case 4:
+                        Console.WriteLine($"See you later {account.Username}.");
+                        State.isActiveSession = false;
+                        break;
+                }
+            }
+            catch (InvalidInputException)
+            {
+                Console.WriteLine("Please type either 1, 2, or 3.");
             }
         }
-        catch (InvalidInputException)
-        {
-            Console.WriteLine("Please type either 1, 2, or 3.");
-        }
+
     }
 
     private void CreateAccountSystem()

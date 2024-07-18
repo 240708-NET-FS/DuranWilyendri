@@ -24,6 +24,11 @@ public class AccountService
             throw new CreateUserException("Username already taken. Try with a different one.");
         }
 
+        if (username.IsNullOrEmpty() || password.IsNullOrEmpty())
+        {
+            throw new CreateUserException("Username and password are mandatory fields.");
+        }
+
         var newAccount = new Account { Username = username, Password = password };
 
         accountDAO.Create(newAccount);

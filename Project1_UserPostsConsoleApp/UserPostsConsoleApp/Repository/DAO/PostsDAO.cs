@@ -31,7 +31,7 @@ public class PostsDAO : IDAO<Posts>
 
     public Posts GetById(int ID)
     {
-        return context.Posts.FirstOrDefault(p => p.PostID == ID);
+        return context.Posts.FirstOrDefault(p => p.PostID == ID)!;
     }
 
     public void Update(Posts item)
