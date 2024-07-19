@@ -38,7 +38,7 @@ public class AccountService
     {
         if (username.Length == 0 || password.Length == 0)
         {
-            throw new InvalidInputException("Invalid credentials");
+            throw new InvalidInputException("Username and password are mandatory fields.");
         }
 
         var account = accountDAO.GetByUsernameAndPassword(username, password);
@@ -54,6 +54,30 @@ public class AccountService
 
     }
 
+    public void ChangePassword(string username, string oldPassword, string newPassword) 
+    {
+        if (username.IsNullOrEmpty() || newPassword.IsNullOrEmpty()) 
+        {
+            throw new InvalidInputException("Username and password are mandatory fields.");
+        }
+
+        Account existingAccount = accountDAO.GetByUsernameAndPassword(username, oldPassword) ?? throw new InvalidInputException("Wrong username or password.");
+        existingAccount.Password = newPassword!;
+        accountDAO.Update(existingAccount);
+    }
+
+    public void DeleteAccount(string username, string password) 
+    {
+        if (username.IsNullOrEmpty() || password.IsNullOrEmpty()) 
+        {
+            throw new InvalidInputException("Username and password are mandatory fields.");
+        }
+
+        Account existingAccount = accountDAO.GetByUsernameAndPassword(username, password) ?? throw new InvalidInputException("Wrong username or password.");
+        
+        accountDAO.Delete(existingAccount);
+    }
+
     public bool UsernameExists(string username)
     {
 
@@ -61,11 +85,5 @@ public class AccountService
 
         return account != null;
     }
-
-    // public Account? GetAccount(string username)
-    // {
-    //     return UsernameExists(username) ? accountDAO.GetByUsername(username) : throw new Exception();
-    // }
-
 
 }
