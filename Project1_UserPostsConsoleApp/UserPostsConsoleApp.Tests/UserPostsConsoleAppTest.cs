@@ -7,20 +7,25 @@ using UserPostsConsoleApp.DAO;
 using UserPostsConsoleApp.Entities;
 using UserPostsConsoleApp.Utility;
 using Moq;
+using Microsoft.EntityFrameworkCore;
 
 namespace UserPostsConsoleApp.Tests;
 
 public class UserPostsConsoleAppTest
 {
-    // [Fact]
-    // public void CreateUser_ShouldReturnMessageWhenEmpty()
-    // {
-    //     var context = new Mock<ApplicationDbContext>();
-    //     var accountDAO = new Mock<AccountDAO>(context.Object);
-    //     var accountService = new AccountService(accountDAO.Object);
+    [Fact]
+    public void CreateUser_ShouldReturnMessageWhenEmpty()
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("MyDb").Options;
+        
+        using (var context = new ApplicationDbContext(options)) 
+        {
+            AccountDAO accountDAO = new AccountDAO(context);
+            AccountService accountService = new AccountService(accountDAO);
 
-    //     Assert.Throws<CreateUserException>(() => accountService.CreateUser("", ""));
-    // }
+            Assert.Throws<CreateUserException>(() => accountService.CreateUser("", ""));
+        }
+    }
 
     [Fact]
     public void ValidateInput_ShouldReturnErrorMessageWhenLetterProvided()
