@@ -24,6 +24,23 @@ public class UserPostsConsoleAppTest
             AccountService accountService = new AccountService(accountDAO);
 
             Assert.Throws<CreateUserException>(() => accountService.CreateUser("", ""));
+            Assert.Throws<CreateUserException>(() => accountService.CreateUser(null!, null!));
+        }
+    }
+
+    [Fact]
+    public void CreateUser_ShouldReturnMessageWhenUsernameTaken()
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("MyDb").Options;
+        
+        using (var context = new ApplicationDbContext(options)) 
+        {
+            AccountDAO accountDAO = new AccountDAO(context);
+            AccountService accountService = new AccountService(accountDAO);
+            accountService.CreateUser("existing user", "123");
+
+            Assert.Throws<CreateUserException>(() => accountService.CreateUser("existing user", "1111"));
+    
         }
     }
 
