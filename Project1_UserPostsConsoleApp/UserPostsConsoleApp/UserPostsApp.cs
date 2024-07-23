@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using UserPostsConsoleApp.Controller;
+﻿using UserPostsConsoleApp.Controller;
 using UserPostsConsoleApp.DAO;
 using UserPostsConsoleApp.Entities;
 using UserPostsConsoleApp.Service;

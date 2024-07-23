@@ -8,7 +8,7 @@ public static class Validation
         {
             return result;
         }
-
+    
         throw new InvalidInputException("Inavlid input");
     }
 }
