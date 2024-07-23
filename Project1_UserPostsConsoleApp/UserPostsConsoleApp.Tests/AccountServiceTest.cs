@@ -127,8 +127,9 @@ public class AccountServiceTest
         {
             AccountDAO accountDAO = new AccountDAO(context);
             AccountService accountService = new AccountService(accountDAO);
+            accountService.CreateUser(name, pssw);
 
-            Assert.Throws<InvalidInputException>(() => accountService.UserLogin(name, pssw));
+            Assert.NotNull(accountService.UserLogin(name, pssw));
 
             // Clean DB to ensure clean state for next run
             context.Accounts.RemoveRange(context.Accounts);
@@ -159,7 +160,7 @@ public class AccountServiceTest
     [InlineData("existing user", "123", "321")]
     [InlineData("existing user2", "231", "123")]
     [InlineData("existing user3", "231", "132")]
-    public void ChangePassword_ShouldSuccefuslyLoggin(string name, string oldPassword, string newPassword)
+    public void ChangePassword_ShouldSuccefuslyChangePassword(string name, string oldPassword, string newPassword)
     {
         var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("MyDb").Options;
         
@@ -167,8 +168,35 @@ public class AccountServiceTest
         {
             AccountDAO accountDAO = new AccountDAO(context);
             AccountService accountService = new AccountService(accountDAO);
+            
+            accountService.CreateUser(name, oldPassword);
+            accountService.ChangePassword(name, oldPassword, newPassword);
 
-            Assert.Throws<InvalidInputException>(() => accountService.UserLogin(name, pssw));
+            Assert.Equal(newPassword, accountService.UserLogin(name, newPassword).Password);
+
+            // Clean DB to ensure clean state for next run
+            context.Accounts.RemoveRange(context.Accounts);
+            context.SaveChanges();
+        }
+    }
+
+    [Theory]
+    [InlineData("existing user", "123")]
+    [InlineData("existing user2", "231")]
+    [InlineData("existing user3", "231")]
+    public void DeleteAccount_ShouldSuccesfullyDeleteUser(string username, string password)
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("MyDb").Options;
+        
+        using (var context = new ApplicationDbContext(options)) 
+        {
+            AccountDAO accountDAO = new AccountDAO(context);
+            AccountService accountService = new AccountService(accountDAO);
+            
+            accountService.CreateUser(username, password);
+            accountService.DeleteAccount(username, password);
+
+            Assert.False(accountService.UsernameExists(username));
 
             // Clean DB to ensure clean state for next run
             context.Accounts.RemoveRange(context.Accounts);
