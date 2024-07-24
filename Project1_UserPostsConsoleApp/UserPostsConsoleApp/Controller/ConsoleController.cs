@@ -70,6 +70,7 @@ public class ConsoleController
         try
         {
             Account account = accountService.UserLogin(username, passw);
+            State.isActiveSession = true;
             PostingSystem(account);
 
         }
