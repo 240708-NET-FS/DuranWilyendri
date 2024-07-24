@@ -30,7 +30,6 @@ public class AccountServiceTest
     [Fact]
     public void CreateUser_ShouldReturnMessageWhenUsernameTaken()
     {
-        // Creating mock db
         var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("MyDb").Options;
         
         using (var context = new ApplicationDbContext(options)) 
