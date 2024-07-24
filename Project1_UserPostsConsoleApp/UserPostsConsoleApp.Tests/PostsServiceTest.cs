@@ -28,6 +28,8 @@ public class PostServiceTest
             context.SaveChanges();
 
             DateTime postDate = DateTime.Now;
+            
+            // Act
             string post = postsService.CreatePost(account, title, content, postDate);
             
             string expected = $"{title}\n {content}\n   - Posted By: {account.Username} On {postDate}";
