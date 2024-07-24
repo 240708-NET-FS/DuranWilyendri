@@ -13,10 +13,10 @@ public class PostsService
         this.postsDAO = postsDAO;
     }
 
-    public string CreatePost(Account account, string title, string content)
+    public string CreatePost(Account account, string title, string content, DateTime dateTime)
     {
 
-        Posts post = new Posts { Title = title, Content = content, PostDate = DateTime.Now, AccountID = account.AccountID };
+        Posts post = new Posts { Title = title, Content = content, PostDate = dateTime, AccountID = account.AccountID };
 
         postsDAO.Create(post);
 

@@ -54,6 +54,8 @@ public class AccountService
 
     }
 
+    public string UserLogin(int username, int password){return "s";}
+
     public void ChangePassword(string username, string oldPassword, string newPassword) 
     {
         if (username.IsNullOrEmpty() || newPassword.IsNullOrEmpty()) 

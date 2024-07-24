@@ -104,7 +104,7 @@ public class ConsoleController
                         string content = Console.ReadLine()!;
 
                         Console.WriteLine("Posting...\n");
-                        string post = postsService.CreatePost(account, title, content);
+                        string post = postsService.CreatePost(account, title, content, DateTime.Now);
 
                         Console.WriteLine(post + "\n");
                         break;

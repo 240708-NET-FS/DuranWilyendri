@@ -1,12 +1,7 @@
-using UserPostsConsoleApp;
-using Xunit;
-using System;
-using System.IO;
 using UserPostsConsoleApp.Service;
 using UserPostsConsoleApp.DAO;
 using UserPostsConsoleApp.Entities;
 using UserPostsConsoleApp.Utility;
-using Moq;
 using Microsoft.EntityFrameworkCore;
 
 namespace UserPostsConsoleApp.Tests;
