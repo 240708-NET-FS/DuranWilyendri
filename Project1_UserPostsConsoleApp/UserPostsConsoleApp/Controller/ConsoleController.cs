@@ -1,5 +1,3 @@
-using System;
-using UserPostsConsoleApp.DAO;
 using UserPostsConsoleApp.Entities;
 using UserPostsConsoleApp.Service;
 using UserPostsConsoleApp.Utility;
@@ -76,7 +74,7 @@ public class ConsoleController
         }
         catch (InvalidInputException ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.Message);           
         }
     }
 

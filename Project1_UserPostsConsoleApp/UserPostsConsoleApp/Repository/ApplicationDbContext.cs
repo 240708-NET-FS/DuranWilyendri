@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using UserPostsConsoleApp.Entities;
 
 namespace UserPostsConsoleApp.Entities;
 
